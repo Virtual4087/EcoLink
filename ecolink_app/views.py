@@ -12,6 +12,5 @@ def default_view(request):
         date = request.POST["date"]
         campaign = Campaign.objects.create(title=title, description=description, target=target, location=location, date=date)
         campaign.save()
-        campaign.attendees.add(request.user)
         return HttpResponse("ok")
     return render(request, "ecolink.html")

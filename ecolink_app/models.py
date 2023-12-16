@@ -8,9 +8,6 @@ class User(AbstractUser):
     user_permissions = models.ManyToManyField(Permission, related_name='custom_user_permissions')
 
 class Campaign(models.Model):
-    organizer = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="organized_events"
-    )
     title = models.CharField(max_length=100)
     description = models.TextField()
     date = models.DateTimeField()
