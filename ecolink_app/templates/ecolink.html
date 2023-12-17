@@ -19,26 +19,33 @@
 <body class="flex">
     <div id="map_details" class="border flex-1">
         <div class="h-full w-full" id="map"></div>
-        </div>
-            <div id="details" class="border h-max">
-                <div id="state_name">
-                    USA
-                </div>
+        <div id="details" class="border h-max">
+            <div id="city_name">
+                All Events
             </div>
         </div>
+    </div>
     <div id="campaigns" class="border w-1/3">
-        <div id="state_name_2">USA</div>
+        <div id="city_name_2">All Campaigns</div>
         <div>Campaigns</div>
         <div id="campaigns_list">
             {% for campaign in campaigns %}
                 <div>{{campaign.title}}</div>
+            {% empty %}
+                <div>None</div>
             {% endfor %}
         </div>
         {% if user.is_authenticated %}
             <button id="start_campaign_button" onclick="start_campaign()">Start Campaign</button>
+            <div>Signed in as {{user.username}}</div>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
         {% else %}
             <button id="start_campaign_button" onclick="login_view()">Login</button>
         {% endif %}
+        {{error}}
     </div>
 
     <div id="start_campaign" class="hidden fixed h-full w-full flex justify-center items-center">
@@ -56,13 +63,16 @@
                 target<input type="text" name="target">
             </div>
             <div>
-                state<input type="text" name="state">
-            </div>
-            <div>
                 location<input type="text" name="location">
             </div>
             <div>
                 date<input type="datetime-local" name="date">
+            </div>
+            <div>
+                Contant No. <input type="number" name="contact_no">
+            </div>
+            <div>
+                Chat room Link <input type="url" name="chat_room">
             </div>
             <button type="submit">Submit</button>
             <button type="button" onclick="cancel_create_campaign()">Cancel</button>
@@ -70,8 +80,8 @@
     </div>
 
     <div id="login_view" class="hidden fixed h-full w-full flex justify-center items-center">
-        {% csrf_token %}
         <form action="" method="post">
+            {% csrf_token %}
             <input type="hidden" name="form_source" value="login">
             <div>
                 username<input type="text" name="username">
@@ -85,9 +95,10 @@
     </div>
 
     <div id="register_view" class="hidden fixed h-full w-full flex justify-center items-center">
-        {% csrf_token %}
-        <input type="hidden" name="form_source" value="register">
         <form action="" method="post" name="">
+            {% csrf_token %}
+            <input type="hidden" name="form_source" value="register">
+
             <div>
                 username<input type="text" name="username">
             </div>
@@ -123,7 +134,7 @@
         fetch('/static/json/kirtipurPoly.json')
             .then(response => response.json())
             .then(data => {
-                map.addLayer({
+                map.addlayer({
                     'id': 'kirtipurPoly',
                     'type': 'fill',
                     'source': {
