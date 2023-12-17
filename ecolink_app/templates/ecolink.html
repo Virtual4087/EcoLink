@@ -15,6 +15,26 @@
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
+    <style>
+    @layer utilities {
+        .light-green {
+          background-color: #84a98c;
+        }
+        .teal {
+            background-color: #52796f;
+          }
+        .dark-green {
+            background-color: #354f52;
+        }
+        .navy {
+            background-color: #2f3e46;
+        }
+        .clay {
+            background-color: #cad2c5;
+        }
+    }
+</style>
+
 </head>
 <body class="flex">
     <div id="map_details" class="border flex-1">
@@ -25,7 +45,7 @@
         <div id="city_name_2" class="p-4 m-2 mb-0 w-5/6 text-3xl">All Campaigns</div>
         <div id="campaigns_list" class="flex h-full w-full">
             {% for campaign in campaigns %}
-                <div class="flex w-full flex-col h-max m-2 mt-0 p-4 bg-gray-200 rounded-xl">
+                <div class="flex w-full flex-col h-max m-4 mt-0 p-4 bg-gray-200 rounded-xl">
                     <div class="justify-between flex flex-row">
                         <div class="text-xl">{{campaign.title}}</div>
                         <div>{{campaign.date}}</div>
@@ -38,12 +58,12 @@
         </div>
         <div class="flex flex-row p-4 justify-between bg-gray-100">
             <div class="flex gap-2">
-                <div class="p-2 bg-gray-200 rounded-xl hover:bg-gray-400">Kirtipur</div>
+                <div class="p-2 teal rounded-xl cursor-pointer hover:brightness-25 text-white">Kirtipur</div>
                 <div class="p-2 bg-gray-200 rounded-xl hover:bg-gray-400">Lalitpur</div>
                 <div class="p-2 bg-gray-200 rounded-xl hover:bg-gray-400">Kathmandu</div>
             </div>
         {% if user.is_authenticated %}
-            <button id="start_campaign_button" class="" onclick="start_campaign()">Start Campaign</button>
+            <button id="start_campaign_button" class="fixed top-" onclick="start_campaign()">Start Campaign</button>
             <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="bg-gray-200 mx-2 p-2 px-8 rounded-xl hover:bg-gray-400">Logout</button>
@@ -97,41 +117,42 @@
         </form>
     </div>
 
-    <div id="login_view" class="hidden fixed h-full w-full flex justify-center items-center">
-        <form action="" method="post">
+    <div id="login_view" class="hidden fixed h-full w-full flex bg-gray-800 z-50 bg-opacity-50 justify-center items-center">
+        <form action="" method="post" class="flex flex-col gap-2 p-16 m-4 bg-gray-100 rounded-2xl">
             {% csrf_token %}
+            <div class="text-xl text-center p-2 mb-4 -mt-4">Welcome Back!</div>
             <input type="hidden" name="form_source" value="login">
-            <div>
-                username<input type="text" name="username">
+            <div class="w-full">
+                <input type="text" class="p-2 rounded-xl w-full border-2" name="username" placeholder="Username">
             </div>
-            <div>
-                password<input type="password" name="password">
+            <div class="w-full">
+                <input type="password" class="p-2 rounded-xl w-full border-2" name="password" placeholder="Password">
             </div>
-            <input type="submit">
+            <button type="submit" class="block w-full bg-indigo-600 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">Login</button>
+            <div class="mt-4 -mb-8">Don't have an account? <button type="button" onclick="register_view()" class="text-blue-500 hover:text-blue-600">Register here</button></div>
         </form>
-        <div>Don't have an account? <button onclick="register_view()">Register here</button></div>
     </div>
 
-    <div id="register_view" class="hidden fixed h-full w-full flex justify-center items-center">
-        <form action="" method="post" name="">
+    <div id="register_view" class="hidden fixed h-full w-full flex bg-gray-800 z-50 bg-opacity-50 justify-center items-center">
+        <form action="" method="post" name="" class="flex flex-col gap-2 p-16 m-4 bg-gray-100 rounded-2xl">
             {% csrf_token %}
+            <div class="text-xl text-center p-2 mb-4 -mt-4">Join the Movement!</div>
             <input type="hidden" name="form_source" value="register">
-
-            <div>
-                username<input type="text" name="username">
+            <div class="w-full">
+                <input type="text" class="p-2 rounded-xl w-full border-2" name="username" placeholder="Username">
             </div>
-            <div>
-                email<input type="email" name="email">
+            <div class="w-full">
+                <input type="email" class="p-2 rounded-xl w-full border-2" name="email" placeholder="Email">
             </div>
-            <div>
-                password<input type="password" name="password">
+            <div class="w-full">
+                <input type="password" class="p-2 rounded-xl w-full border-2" name="password" placeholder="Password">
             </div>
-            <div>
-                confirm password<input type="password" name="confirmation">
+            <div class="w-full">
+                <input type="password" class="p-2 rounded-xl w-full border-2" name="confirmation" placeholder="Confirm Password">
             </div>
-            <input type="submit">
+            <button type="submit" class="block w-full bg-indigo-600 mt-5 py-2 rounded-2xl hover:bg-indigo-700 hover:-translate-y-1 transition-all duration-500 text-white font-semibold mb-2">Login</button>
+            <div class="mt-4 -mb-8">Already have an account? <button type="button" onclick="login_view()" class="text-blue-500 hover:text-blue-600">Login here</button></div>
         </form>
-        <div>Already have an account? <button onclick="login_view()">Login here</button></div>
     </div>
 
     <script src="{% static 'js/index.js' %}"></script>
