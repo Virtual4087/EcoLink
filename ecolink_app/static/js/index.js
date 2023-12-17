@@ -18,6 +18,115 @@ document.addEventListener('DOMContentLoaded', () => {
             city_name_2.innerText = path.dataset.name
         })
     })
+    maptilersdk.config.apiKey = '9cfqlXmXBJySAgiNxGqW';
+    
+    const map = new maptilersdk.Map({
+      container: 'map',
+      style: "efba20d3-8d89-4a7d-828a-1956aded28fa",
+      center: [85.25, 27.7], 
+      zoom: 12
+    });
+
+    map.on('style.load', function () {
+        fetch('/static/json/kirtipurPoly.json')
+            .then(response => response.json())
+            .then(data => {
+                map.addLayer({
+                    'id': 'kirtipurPoly',
+                    'type': 'fill',
+                    'source': {
+                        'type': 'geojson',
+                        'data': data
+                    },
+                    'layout': {},
+                    'paint': {
+                        'fill-color': '#00ff00',
+                        'fill-opacity': 0.25
+                    }
+                });
+            })
+    .catch(error => console.error('Error loading GeoJSON:', error));
+        });
+
+    map.on('mouseover', 'kirtipurPoly', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+        
+    map.on('click', 'kirtipurPoly', function(){
+        console.log("Kiritpur")
+    });
+    
+    map.on('mouseleave', 'kirtipurPoly', function () {
+        map.getCanvas().style.cursor = '';
+      });
+
+    map.on('style.load', function () {
+        fetch('/static/json/lalitpurPoly.json')
+            .then(response => response.json())
+            .then(data => {
+                map.addLayer({
+                    'id': 'lalitpurPoly',
+                    'type': 'fill',
+                    'source': {
+                        'type': 'geojson',
+                        'data': data
+                    },
+                    'layout': {},
+                    'paint': {
+                        'fill-color': '#fff000',
+                        'fill-opacity': 0.25
+                    }
+                });
+            })
+    .catch(error => console.error('Error loading GeoJSON:', error));
+    });
+
+    map.on('mouseover', 'lalitpurPoly', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+        
+    map.on('click', 'lalitpurPoly', function(){
+        console.log("Lalitpur")
+    });
+    
+    map.on('mouseleave', 'lalitpurPoly', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
+
+    map.on('style.load', function () {
+        fetch('/static/json/kathmanduPoly.json')
+        .then(response => response.json())
+        .then(data => {
+            map.addLayer({
+                'id': 'kathmanduPoly',
+                'type': 'fill',
+                'source': {
+                    'type': 'geojson',
+                    'data': data
+                },
+                'layout': {},
+                'paint': {
+                    'fill-color': '#f00f00',
+                    'fill-opacity': 0.25
+                }
+            });
+        })
+        .catch(error => console.error('Error loading GeoJSON:', error));
+    });
+
+    map.on('mouseover', 'kathmanduPoly', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+        
+    map.on('click', 'kathmanduPoly', function(){
+        console.log("Kathmandu")
+    });
+
+    map.on('mouseleave', 'kathmanduPoly', function () {
+        map.getCanvas().style.cursor = '';
+    });
+
 })
 
 function start_campaign(){
