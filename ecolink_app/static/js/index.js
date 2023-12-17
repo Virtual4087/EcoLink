@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
       container: 'map',
       style: "efba20d3-8d89-4a7d-828a-1956aded28fa",
       center: [85.31, 27.68], 
-      zoom: 11.7
+      zoom: 11.5,
+      navigationControl: "top-left",
+      geolocateControl: false
     });
 
     map.on('style.load', function () {
@@ -92,29 +94,29 @@ document.addEventListener('DOMContentLoaded', () => {
     
     map.on('mouseleave', 'lalitpurPoly', function () {
         map.getCanvas().style.cursor = '';
-    });
+      });
 
 
-    map.on('style.load', function () {
+map.on('style.load', function () {
         fetch('/static/json/kathmanduPoly.json')
-        .then(response => response.json())
-        .then(data => {
-            map.addLayer({
-                'id': 'kathmanduPoly',
-                'type': 'fill',
-                'source': {
-                    'type': 'geojson',
-                    'data': data
-                },
-                'layout': {},
-                'paint': {
-                    'fill-color': '#f00f00',
-                    'fill-opacity': 0.25
-                }
-            });
-        })
-        .catch(error => console.error('Error loading GeoJSON:', error));
-    });
+            .then(response => response.json())
+            .then(data => {
+                map.addLayer({
+                    'id': 'kathmanduPoly',
+                    'type': 'fill',
+                    'source': {
+                        'type': 'geojson',
+                        'data': data
+                    },
+                    'layout': {},
+                    'paint': {
+                        'fill-color': '#f00f00',
+                        'fill-opacity': 0.25
+                    }
+                });
+            })
+    .catch(error => console.error('Error loading GeoJSON:', error));
+});
 
     map.on('mouseover', 'kathmanduPoly', function () {
         map.getCanvas().style.cursor = 'pointer';
@@ -128,14 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
         map.getCanvas().style.cursor = '';
     });
 
-    document.querySelectorAll("#campaign_card").forEach((element) => {
-        element.addEventListener('click', () => {
-            let Params = new URLSearchParams(window.location.search);
-            Params.set('p', element.dataset.id);
-            let newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + Params.toString();
-            window.history.pushState({path:newUrl},'',newUrl);
-        })
-    })
+    L.control.zoom({
+        position: 'topleft'
+    }).addTo(map);
+
 })
 
 function start_campaign(){
