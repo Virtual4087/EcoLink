@@ -54,24 +54,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (attend){
         attend.addEventListener('click', () => {
-            fetch(`/campaign/${attend.dataset.id}`, {
-                method : "POST",
-                headers : {
-                    "Content-Type" : "application/json",
-                    "X-CSRFToken" : attend.dataset.csrf
-                },
-                body : attend.dataset.user
-            })
-            .then(response => response.json())
-            .then(data => { 
-                if (data.success == true){
-                    attend.innerText = "Joined"
-                    attend.disabled = true
-                }else{
-                    alert("Some error occured!")
-                }
-            })
+        fetch(`/campaign/${attend.dataset.id}`, {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json",
+                "X-CSRFToken" : attend.dataset.csrf
+            },
+            body : attend.dataset.user
         })
+        .then(response => response.json())
+        .then(data => { 
+            if (data.success == true){
+                attend.innerText = "Joined"
+                attend.disabled = true
+            }else{
+                alert("Some error occured!")
+            }
+        })
+    })
     }
 
     maptilersdk.config.apiKey = '9cfqlXmXBJySAgiNxGqW';
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     'layout': {},
                     'paint': {
-                        'fill-color': '#00ff00',
+                        'fill-color': '#028A0F',
                         'fill-opacity': 0.25
                     }
                 });
@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     map.on('mouseover', 'kirtipurPoly', function () {
         map.getCanvas().style.cursor = 'pointer';
+        map.setPaintProperty('kirtipurPoly', 'fill-color', '#76FF7A');
     });
         
     map.on('click', 'kirtipurPoly', function(){
@@ -116,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     map.on('mouseleave', 'kirtipurPoly', function () {
         map.getCanvas().style.cursor = '';
+        map.setPaintProperty('kirtipurPoly', 'fill-color', '#028A0F');
       });
 
     map.on('style.load', function () {
@@ -131,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     'layout': {},
                     'paint': {
-                        'fill-color': '#fff000',
+                        'fill-color': '#ffff00',
                         'fill-opacity': 0.25
                     }
                 });
@@ -141,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     map.on('mouseover', 'lalitpurPoly', function () {
         map.getCanvas().style.cursor = 'pointer';
+        map.setPaintProperty('lalitpurPoly', 'fill-color', '#EFFD5F');
     });
         
     map.on('click', 'lalitpurPoly', function(){
@@ -149,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     map.on('mouseleave', 'lalitpurPoly', function () {
         map.getCanvas().style.cursor = '';
+        map.setPaintProperty('lalitpurPoly', 'fill-color', '#ffff00');
       });
 
 
@@ -165,7 +169,7 @@ map.on('style.load', function () {
                     },
                     'layout': {},
                     'paint': {
-                        'fill-color': '#f00f00',
+                        'fill-color': '#ff0000',
                         'fill-opacity': 0.25
                     }
                 });
@@ -175,6 +179,7 @@ map.on('style.load', function () {
 
     map.on('mouseover', 'kathmanduPoly', function () {
         map.getCanvas().style.cursor = 'pointer';
+        map.setPaintProperty('kathmanduPoly', 'fill-color', '#CD5C5C');
     });
         
     map.on('click', 'kathmanduPoly', function(){
@@ -183,6 +188,7 @@ map.on('style.load', function () {
 
     map.on('mouseleave', 'kathmanduPoly', function () {
         map.getCanvas().style.cursor = '';
+        map.setPaintProperty('kathmanduPoly', 'fill-color', '#ff0000');
     });
 
     L.control.zoom({

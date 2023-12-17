@@ -19,4 +19,3 @@ class Campaign(models.Model):
     target = models.CharField(max_length=200)
     attendees = models.ManyToManyField(User, related_name="joined_events")
     contact_no = models.IntegerField(null=True)
-    chat_room_link = models.CharField(max_length=100, null=True)
