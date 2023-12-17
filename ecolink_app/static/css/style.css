@@ -1,0 +1,16 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    position: relative;
+}
+
+path{
+    stroke-width:0.5;
+    fill:#2ca70e;
+    cursor: pointer;
+}
+
+path:hover{
+    fill:#228608;
+}
