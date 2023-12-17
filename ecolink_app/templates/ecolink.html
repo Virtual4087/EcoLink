@@ -73,6 +73,14 @@
                 target<input type="text" name="target">
             </div>
             <div>
+                <select name="city" class="w-1/3 rounded-xl bg-gray-100 p-1 ml-4" required>
+                    <option value="" disabled selected>Choose a city</option>
+                    {% for city in cities %}
+                        <option value="{{city.city}}">{{city.city}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
                 location<input type="text" name="location">
             </div>
             <div>
