@@ -5,6 +5,7 @@ const city_name_2 = document.querySelector("#city_name_2")
 const start_campaign_button = document.querySelector("#start_campaign")
 const login = document.querySelector("#login_view")
 const register = document.querySelector("#register_view")
+const campaign_info = document.querySelector("#campaign_info")
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('path').forEach((path) => {
@@ -127,6 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
         map.getCanvas().style.cursor = '';
     });
 
+    document.querySelectorAll("#campaign_card").forEach((element) => {
+        element.addEventListener('click', () => {
+            let Params = new URLSearchParams(window.location.search);
+            Params.set('p', element.dataset.id);
+            let newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + Params.toString();
+            window.history.pushState({path:newUrl},'',newUrl);
+        })
+    })
 })
 
 function start_campaign(){
@@ -150,3 +159,4 @@ function register_view(){
     login.classList.add("hidden")
     register.classList.remove("hidden")
 }
+
