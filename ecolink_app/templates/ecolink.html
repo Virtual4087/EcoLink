@@ -110,35 +110,5 @@
 </html>
 
 <script>
-    maptilersdk.config.apiKey = '9cfqlXmXBJySAgiNxGqW';
     
-    const map = new maptilersdk.Map({
-      container: 'map', // container's id or the HTML element to render the map
-      style: "4d74ac5d-834a-4ed1-9f67-cded0fc92361",
-      center: [85.25, 27.7], // starting position [lng, lat]
-      zoom: 12
-    });
-
-    map.on('style.load', function () {
-        fetch('/static/json/kirtipurPoly.json')
-            .then(response => response.json())
-            .then(data => {
-                map.addLayer({
-                    'id': 'kirtipurPoly',
-                    'type': 'fill',
-                    'source': {
-                        'type': 'geojson',
-                        'data': data
-                    },
-                    'layout': {},
-                    'paint': {
-                        'fill-color': '#00ffff',
-                        'fill-opacity': 0.8
-                    }
-                });
-            })
-    .catch(error => console.error('Error loading GeoJSON:', error));
-});
-
-
 </script>
