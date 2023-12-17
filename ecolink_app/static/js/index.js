@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
         
     map.on('click', 'kirtipurPoly', function(){
-        console.log("Kiritpur")
+        filter_city("kirtipur")
     });
     
     map.on('mouseleave', 'kirtipurPoly', function () {
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
         
     map.on('click', 'lalitpurPoly', function(){
-        console.log("Lalitpur")
+        filter_city("lalitpur")
     });
     
     map.on('mouseleave', 'lalitpurPoly', function () {
@@ -123,7 +123,7 @@ map.on('style.load', function () {
     });
         
     map.on('click', 'kathmanduPoly', function(){
-        console.log("Kathmandu")
+        filter_city("kathmandu")
     });
 
     map.on('mouseleave', 'kathmanduPoly', function () {
@@ -158,3 +158,17 @@ function register_view(){
     register.classList.remove("hidden")
 }
 
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function filter_city(city){
+    city_name_2.innerText = capitalize(city)
+    document.querySelectorAll("#single_campaign").forEach((element) => {
+        if (element.dataset.city == city){
+            element.classList.remove("hidden")
+        }else{
+            element.classList.add("hidden")
+        }
+    })
+}
