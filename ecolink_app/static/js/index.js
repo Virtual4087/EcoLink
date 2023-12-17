@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     'paint': {
                         'fill-color': '#00ff00',
                         'fill-opacity': 0.25
-                    }
+                    },
+                    'interactive': true
                 });
             })
     .catch(error => console.error('Error loading GeoJSON:', error));
