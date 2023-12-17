@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
       container: 'map',
       style: "efba20d3-8d89-4a7d-828a-1956aded28fa",
       center: [85.31, 27.68], 
-      zoom: 11.7
+      zoom: 11.5,
+      navigationControl: "top-left",
+      geolocateControl: false
     });
 
     map.on('style.load', function () {
@@ -42,8 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     'paint': {
                         'fill-color': '#00ff00',
                         'fill-opacity': 0.25
-                    },
-                    'interactive': true
+                    }
                 });
             })
     .catch(error => console.error('Error loading GeoJSON:', error));
@@ -92,29 +93,29 @@ document.addEventListener('DOMContentLoaded', () => {
     
     map.on('mouseleave', 'lalitpurPoly', function () {
         map.getCanvas().style.cursor = '';
-    });
+      });
 
 
-    map.on('style.load', function () {
+map.on('style.load', function () {
         fetch('/static/json/kathmanduPoly.json')
-        .then(response => response.json())
-        .then(data => {
-            map.addLayer({
-                'id': 'kathmanduPoly',
-                'type': 'fill',
-                'source': {
-                    'type': 'geojson',
-                    'data': data
-                },
-                'layout': {},
-                'paint': {
-                    'fill-color': '#f00f00',
-                    'fill-opacity': 0.25
-                }
-            });
-        })
-        .catch(error => console.error('Error loading GeoJSON:', error));
-    });
+            .then(response => response.json())
+            .then(data => {
+                map.addLayer({
+                    'id': 'kathmanduPoly',
+                    'type': 'fill',
+                    'source': {
+                        'type': 'geojson',
+                        'data': data
+                    },
+                    'layout': {},
+                    'paint': {
+                        'fill-color': '#f00f00',
+                        'fill-opacity': 0.25
+                    }
+                });
+            })
+    .catch(error => console.error('Error loading GeoJSON:', error));
+});
 
     map.on('mouseover', 'kathmanduPoly', function () {
         map.getCanvas().style.cursor = 'pointer';
@@ -127,6 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
     map.on('mouseleave', 'kathmanduPoly', function () {
         map.getCanvas().style.cursor = '';
     });
+
+    L.control.zoom({
+        position: 'topleft'
+    }).addTo(map);
 
 })
 
