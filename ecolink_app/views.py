@@ -16,11 +16,10 @@ def default_view(request):
             area = request.POST.get("location")
             date = request.POST.get("date")
             contact = request.POST.get("contact_no")
-            chat_room = request.POST.get("chat_room")
             city = request.POST.get("city")
 
             try:
-                campaign = Campaign.objects.create(organizer=request.user, title=title, description=description, target=target, area=area, date=date, contact_no=contact, chat_room_link=chat_room, city=City.objects.get(city=city))
+                campaign = Campaign.objects.create(organizer=request.user, title=title, description=description, target=target, area=area, date=date, contact_no=contact, city=City.objects.get(city=city))
                 campaign.save()
                 campaign.attendees.add(request.user)
                 return redirect("default_view")

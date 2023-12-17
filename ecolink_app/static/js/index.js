@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
             fetch(`/campaign/${element.dataset.id}`)
             .then(response => response.json())
             .then(data => {
+                if(attend){
+                    attend.dataset.id = data.id
+                }
                 campaign_info.querySelector("#title").innerText = data.title
                 campaign_info.querySelector("#description").innerText = data.description
                 campaign_info.querySelector("#target").innerText = data.target
@@ -39,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 campaign_info.querySelector("#organizer").innerText = data.organizer
                 campaign_info.querySelector("#contact_no").innerText = data.contact_no
                 campaign_info.querySelector("#email").innerText = data.email
-                campaign_info.querySelector("#attend").dataset.id = data.id
                 campaign_info.classList.remove('hidden')
                 if (data.attendees.includes(element.dataset.user)){
                     attend.innerText = "Joined"
