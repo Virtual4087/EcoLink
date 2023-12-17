@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Campaign, User
+from .models import Campaign, User, City
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
@@ -15,9 +15,10 @@ def default_view(request):
             date = request.POST.get("date")
             contact = request.POST.get("contact_no")
             chat_room = request.POST.get("chat_room")
+            city = request.POST.get("city")
 
             try:
-                campaign = Campaign.objects.create(organizer=request.user, title=title, description=description, target=target, area=area, date=date, contact_no=contact, chat_room_link=chat_room)
+                campaign = Campaign.objects.create(organizer=request.user, title=title, description=description, target=target, area=area, date=date, contact_no=contact, chat_room_link=chat_room, city=City.objects.get(city=city))
                 campaign.save()
                 return redirect("default_view")
             except Exception as e:
@@ -49,6 +50,7 @@ def default_view(request):
                     error = str(e)
     return render(request, "ecolink.html", {
         "campaigns" : Campaign.objects.all(),
+        "cities" : City.objects.all(),
         "error" : error
     })
 

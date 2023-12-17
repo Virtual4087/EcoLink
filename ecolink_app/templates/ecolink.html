@@ -30,9 +30,9 @@
         <div>Campaigns</div>
         <div id="campaigns_list">
             {% for campaign in campaigns %}
-                <div>{{campaign.title}}</div>
-            {% empty %}
-                <div>None</div>
+                <div id="campaign_card" class="border p-3 cursor-pointer">
+                    <div>{{campaign.title}}</div>
+                </div>
             {% endfor %}
         </div>
         {% if user.is_authenticated %}
@@ -45,7 +45,9 @@
         {% else %}
             <button id="start_campaign_button" onclick="login_view()">Login</button>
         {% endif %}
-        {{error}}
+        {% if error %}
+            <div>{{error}}</div>
+        {% endif %}
     </div>
 
     <div id="start_campaign" class="hidden fixed h-full w-full flex justify-center items-center">
@@ -61,6 +63,14 @@
             </div>
             <div>
                 target<input type="text" name="target">
+            </div>
+            <div>
+                <select name="city" class="w-1/3 rounded-xl bg-gray-100 p-1 ml-4" required>
+                    <option value="" disabled selected>Choose a city</option>
+                    {% for city in cities %}
+                        <option value="{{city.city}}">{{city.city}}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div>
                 location<input type="text" name="location">

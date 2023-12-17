@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const map = new maptilersdk.Map({
       container: 'map',
       style: "efba20d3-8d89-4a7d-828a-1956aded28fa",
-      center: [85.25, 27.7], 
-      zoom: 12
+      center: [85.31, 27.68], 
+      zoom: 11.7
     });
 
     map.on('style.load', function () {
