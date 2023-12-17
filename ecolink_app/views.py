@@ -20,6 +20,7 @@ def default_view(request):
             try:
                 campaign = Campaign.objects.create(organizer=request.user, title=title, description=description, target=target, area=area, date=date, contact_no=contact, chat_room_link=chat_room, city=City.objects.get(city=city))
                 campaign.save()
+                campaign.attendees.add(request.user)
                 return redirect("default_view")
             except Exception as e:
                 error = str(e)
