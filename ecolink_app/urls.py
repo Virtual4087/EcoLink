@@ -4,4 +4,5 @@ from . import views
 urlpatterns = [
     path('', views.default_view, name="default_view"),
     path('logout', views.logout_view, name="logout"),
+    path('campaign/<int:id>', views.campaign, name="campaign")
 ]

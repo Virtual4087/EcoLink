@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
+from django.http import JsonResponse
 from .models import Campaign, User, City
 from django.contrib.auth import login, logout, authenticate
+from django.core import serializers
 # Create your views here.
 
 def default_view(request):
@@ -59,3 +61,34 @@ def logout_view(request):
     if request.method == "POST":
         logout(request)
     return redirect("default_view")
+
+def campaign(request, id):
+    if request.method == "POST":
+        try: 
+            campaign = Campaign.objects.get(id=id)
+            data = request.body.decode("utf-8")
+            campaign.attendees.add(request.user)
+            return JsonResponse({"success" : True})
+        except:
+            return JsonResponse({"success" : False})
+    try:
+        campaign = Campaign.objects.get(id=id)
+        attendees = []
+        for i in campaign.attendees.all():
+            attendees.append(i.username)
+        data = {
+            'id' : campaign.id,
+            'organizer' : campaign.organizer.username,
+            'title' : campaign.title,
+            'description' : campaign.description,
+            'date' : campaign.date,
+            'city' : campaign.city.city,
+            'area' : campaign.area,
+            'target' : campaign.target,
+            'attendees' : attendees,
+            'contact_no' : campaign.contact_no,
+            'email' : campaign.organizer.email
+        }
+        return JsonResponse(data, safe=False)
+    except Exception as e:
+        return HttpResponse(str(e))
