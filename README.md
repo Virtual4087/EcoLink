@@ -14,3 +14,5 @@ EcoLink allows for users to select specific cities in their given state, provinc
 - python manage.py runserver
 
 Note:- **You can remove users and campaigns through django admin interface.**
+
+[**Click to watch live demo**](https://youtu.be/1awAq6DugrU?si=z0euXWrGM_kHe7Zl)
